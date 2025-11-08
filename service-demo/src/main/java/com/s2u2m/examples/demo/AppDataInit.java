@@ -14,10 +14,10 @@ import com.s2u2m.examples.demo.domain.rbac.Resource;
 import com.s2u2m.examples.demo.domain.rbac.Role;
 import com.s2u2m.examples.demo.domain.rbac.RoleName;
 import com.s2u2m.examples.demo.domain.rbac.RoleRepository;
+import com.s2u2m.examples.demo.domain.repository.DemoEntity;
+import com.s2u2m.examples.demo.domain.repository.DemoEntityRepository;
 import com.s2u2m.examples.demo.domain.user.InnerUser;
 import com.s2u2m.examples.demo.domain.user.UserRepository;
-import com.s2u2m.examples.demo.repository.DemoEntity;
-import com.s2u2m.examples.demo.repository.DemoEntityRepository;
 
 @Component
 @AllArgsConstructor

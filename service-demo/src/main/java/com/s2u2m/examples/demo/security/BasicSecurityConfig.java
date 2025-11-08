@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
-import com.s2u2m.examples.demo.service.auth.UsernameAccountService;
+import com.s2u2m.examples.demo.auth.service.UsernameAccountService;
 
 @Configuration
 public class BasicSecurityConfig {

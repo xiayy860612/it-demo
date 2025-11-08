@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.s2u2m.examples.demo.repository.DemoEntity;
-import com.s2u2m.examples.demo.repository.DemoEntityRepository;
-import com.s2u2m.examples.demo.service.DemoService;
+import com.s2u2m.examples.demo.demo.service.DemoService;
+import com.s2u2m.examples.demo.domain.repository.DemoEntity;
+import com.s2u2m.examples.demo.domain.repository.DemoEntityRepository;
 import com.s2u2m.examples.service_example_h2.BaseServiceTest;
 
 import org.junit.jupiter.api.Test;

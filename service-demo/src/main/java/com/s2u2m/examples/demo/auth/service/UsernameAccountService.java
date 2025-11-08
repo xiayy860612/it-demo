@@ -1,4 +1,4 @@
-package com.s2u2m.examples.demo.service.auth;
+package com.s2u2m.examples.demo.auth.service;
 
 import java.util.Collection;
 import java.util.LinkedList;

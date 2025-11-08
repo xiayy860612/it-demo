@@ -1,9 +1,9 @@
-package com.s2u2m.examples.demo.controller;
+package com.s2u2m.examples.demo.demo.controller;
 
+import com.s2u2m.examples.demo.demo.service.DemoService;
+import com.s2u2m.examples.demo.domain.repository.DemoEntity;
+import com.s2u2m.examples.demo.domain.repository.DemoEntityRepository;
 import com.s2u2m.examples.demo.error.DemoErrorCode;
-import com.s2u2m.examples.demo.repository.DemoEntity;
-import com.s2u2m.examples.demo.repository.DemoEntityRepository;
-import com.s2u2m.examples.demo.service.DemoService;
 import com.s2u2m.services.core.error.S2u2mException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

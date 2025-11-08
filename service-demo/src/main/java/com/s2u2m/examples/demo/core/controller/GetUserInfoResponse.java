@@ -1,4 +1,4 @@
-package com.s2u2m.examples.demo.controller.auth;
+package com.s2u2m.examples.demo.core.controller;
 
 import com.s2u2m.examples.demo.domain.user.UserInfo;
 

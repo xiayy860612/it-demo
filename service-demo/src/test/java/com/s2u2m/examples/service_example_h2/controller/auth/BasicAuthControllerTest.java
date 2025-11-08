@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.s2u2m.examples.demo.controller.auth.BasicAuthController;
+import com.s2u2m.examples.demo.auth.controller.BasicAuthController;
 import com.s2u2m.examples.demo.domain.user.InnerUser;
 import com.s2u2m.examples.demo.domain.user.UserRepository;
 import com.s2u2m.examples.demo.utils.AuthUtils;

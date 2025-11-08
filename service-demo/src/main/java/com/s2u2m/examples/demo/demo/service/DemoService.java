@@ -1,11 +1,11 @@
-package com.s2u2m.examples.demo.service;
+package com.s2u2m.examples.demo.demo.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.s2u2m.examples.demo.repository.DemoEntity;
-import com.s2u2m.examples.demo.repository.DemoEntityRepository;
+import com.s2u2m.examples.demo.domain.repository.DemoEntity;
+import com.s2u2m.examples.demo.domain.repository.DemoEntityRepository;
 
 @Service
 @AllArgsConstructor

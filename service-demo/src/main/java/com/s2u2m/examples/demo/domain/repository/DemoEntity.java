@@ -1,4 +1,4 @@
-package com.s2u2m.examples.demo.repository;
+package com.s2u2m.examples.demo.domain.repository;
 
 import com.s2u2m.services.core.repository.AuditableEntity;
 import jakarta.persistence.Entity;

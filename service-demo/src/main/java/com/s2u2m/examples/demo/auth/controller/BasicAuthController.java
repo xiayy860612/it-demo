@@ -1,4 +1,4 @@
-package com.s2u2m.examples.demo.controller.auth;
+package com.s2u2m.examples.demo.auth.controller;
 
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
