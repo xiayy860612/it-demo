@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: maven-settings
+data:
+  settings.xml: |
+    <settings>
+      <servers>
+        <server>
+          <id>2485213-snapshot-ST4E2h</id>
+          <username>${env.MAVEN_SERVER_USERNAME}</username>
+          <password>${env.MAVEN_SERVER_PASSWORD}</password>
+        </server>
+      </servers>
+
+      <profiles>
+        <profile>
+          <id>rdc</id>
+          <repositories>
+            <repository>
+              <id>2485213-snapshot-ST4E2h</id>
+              <url>https://packages.aliyun.com/66ac358a953179b1ec5f4e6b/maven/2485213-snapshot-st4e2h</url>
+              <releases>
+                <enabled>true</enabled>
+              </releases>
+              <snapshots>
+                <enabled>true</enabled>
+              </snapshots>
+            </repository>
+          </repositories>
+        </profile>
+      </profiles>
+      <activeProfiles>
+        <activeProfile>rdc</activeProfile>
+      </activeProfiles>
+    </settings>

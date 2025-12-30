@@ -1,0 +1,61 @@
+name: Java CI with mvn
+
+on:
+  push:
+    branches:
+      - main
+
+
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          server-id: 2485213-snapshot-ST4E2h
+      - name: Configure Maven Settings
+        run: |
+          mkdir -p ~/.m2
+          echo "<settings>
+            <servers>
+              <server>
+                <id>2485213-snapshot-ST4E2h</id>
+                <username>${{ secrets.MAVEN_SERVER_USERNAME }}</username>
+                <password>${{ secrets.MAVEN_SERVER_PASSWORD }}</password>
+              </server>
+            </servers>
+          </settings>" > ~/.m2/settings.xml
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2-
+      - name: Deploy to Maven Repository
+        run: mvn -B clean package
+      - name: Deploy to Maven Repository
+        run: mvn deploy
+      - name: Extract release version
+        id: extract_version
+        run: |
+          echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+      - name: Update deploy version
+        run: |
+          # update release version
+          sed -i "s|RELEASE_VERSION: .*|RELEASE_VERSION: ${{ env.RELEASE_VERSION }}|" ./k8s/service-config.yaml
+          sed -i "s|RELEASE_COMMIT: .*|RELEASE_COMMIT: ${{ github.sha }}|" ./k8s/service-config.yaml
+          # commit CD files change
+          git config --global user.email "ci-bot@example.com"
+          git config --global user.name "CI Bot"
+          git add ./k8s/*.yaml
+          git commit -m "Update release to ${{ env.RELEASE_VERSION }}"
+          git push origin ${{ github.ref_name }}

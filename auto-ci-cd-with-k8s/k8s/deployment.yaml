@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auto-ci-cd-java-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auto-ci-cd-java-app
+  template:
+    metadata:
+      labels:
+        app: auto-ci-cd-java-app
+    spec:
+      volumes:
+        - name: maven-settings-volume
+          configMap:
+            name: maven-settings
+        - name: shared-data
+          emptyDir: {}
+      initContainers:
+        - name: download-jar
+          image: maven:3.9.9-eclipse-temurin-17
+          volumeMounts:
+            - name: maven-settings-volume
+              mountPath: /root/.m2/settings.xml
+              subPath: settings.xml
+            - name: shared-data
+              mountPath: /shared-data
+          env:
+            - name: MAVEN_SERVER_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mvn-repo-secret
+                  key: username
+            - name: MAVEN_SERVER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mvn-repo-secret
+                  key: password
+            - name: RELEASE_VERSION
+              valueFrom:
+                configMapKeyRef:
+                  name: service-config
+                  key: RELEASE_VERSION
+          command: 
+            - bash
+            - -c
+            - |
+              mvn dependency:get -DrepositoryId=2485213-snapshot-ST4E2h -Dartifact=com.s2u2m.examples:auto-ci-cd-with-k8s-example:${RELEASE_VERSION}:jar -Dtransitive=false
+              cp ~/.m2/repository/com/s2u2m/examples/auto-ci-cd-with-k8s-example/${RELEASE_VERSION}/auto-ci-cd-with-k8s-example-${RELEASE_VERSION}.jar /shared-data/auto-ci-cd-with-k8s-example.jar
+      containers:
+        - name: auto-ci-cd-with-k8s-app
+          image: openjdk:17
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: shared-data
+              mountPath: /app
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: host
+            - name: MYSQL_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dbname
+            - name: MYSQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: username
+            - name: MYSQL_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
+          command: ["java", "-jar", "/app/auto-ci-cd-with-k8s-example.jar"]
+          
