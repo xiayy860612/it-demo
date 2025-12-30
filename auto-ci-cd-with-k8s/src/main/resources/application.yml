@@ -1,0 +1,4 @@
+mysql:
+  url: jdbc:mysql://${MYSQL_HOST:localhost:8080}/${MYSQL_DBNAME:testdb}
+  username: ${MYSQL_USERNAME:admin}
+  pwd: ${MYSQL_PWD:admin1234}
